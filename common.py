@@ -26,6 +26,7 @@ class Card:
             return str(self.value)
         if self.value == 14:
             return "ace"
+        return ["jack","queen","king"][self.value-11]
 
     def get_color(self):
         if self.suite < 2:
@@ -104,7 +105,7 @@ class Deck:
         return len(self.deck)
 
 
-def Hand:
+class Hand:
 
     def __init__(self, cards=[]):
         self.cards = cards[::]
@@ -116,25 +117,31 @@ def Hand:
         if type(cards) == Card:
             self.cards.append(c)
 
-def Player:
+    def pop_top(self):
+        return self.cards.pop(0)
+
+    def __len__(self):
+        return len(self.cards)
+
+class Player:
 
     def __init__(self, is_comp=False):
         # Hand is what the player can see, unseen what they cannot
-        self.hand   = Hand()
-        self.unseen = Hand()
+        self.hand    = Hand()
+        self.unseen  = Hand()
+        self.discard = Hand()
 
-    def get_cards(self, cards, is_seen=False):
-        if is_seen:
-            self.hand.add_cards(cards)
-        else:
-            self.unseen.add_cards(cards)
+    def __len__(self):
+        return len(self.hand)+len(self.unseen)+len(self.discard)
 
 
-def Game:
+class Game:
 
     def __init__(self,name,num_players=2):
-        self.name = name
+        self.deck    = Deck()
+        self.name    = name
         self.players = [Player() for i in range(num_players)]
+        self.np      = num_players
 
     # Runs the game until game over
     def play_game(self):
@@ -145,7 +152,7 @@ def Game:
         pass
 
     # Checks is the game is over
-    def is_game_over(self,state):
+    def game_over(self,state):
         pass
 
     # Get the move for the player at ind index
