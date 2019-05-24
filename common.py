@@ -106,16 +106,25 @@ class Deck:
 
 def Hand:
 
-    def __init__(self, cards=[], hid=[]):
-        self.down = hid[::]
-        self.face = cards[::]
+    def __init__(self, cards=[]):
+        self.cards = cards[::]
 
     def add_cards(self,cards):
         if type(cards) == list:
             for c in cards:
-                self.face.append(c)
+                self.cards.append(c)
         if type(cards) == Card:
-            self.face.append(c)
+            self.cards.append(c)
 
-    def flip(self):
-        self.face, self.down = self.down, self.face
+def Player:
+
+    def __init__(self, is_comp=True):
+        # Hand is what the player can see, unseen what they cannot
+        self.hand   = Hand()
+        self.unseen = Hand()
+
+    def get_cards(self, cards, is_seen=False):
+        if is_seen:
+            self.hand.add_cards(cards)
+        else:
+            self.unseen.add_cards(cards)
