@@ -118,7 +118,7 @@ def Hand:
 
 def Player:
 
-    def __init__(self, is_comp=True):
+    def __init__(self, is_comp=False):
         # Hand is what the player can see, unseen what they cannot
         self.hand   = Hand()
         self.unseen = Hand()
@@ -128,3 +128,34 @@ def Player:
             self.hand.add_cards(cards)
         else:
             self.unseen.add_cards(cards)
+
+
+def Game:
+
+    def __init__(self,name,num_players=2):
+        self.name = name
+        self.players = [Player() for i in range(num_players)]
+
+    # Runs the game until game over
+    def play_game(self):
+        pass
+
+    # Initializes the game with desired variables
+    def init_game(self):
+        pass
+
+    # Checks is the game is over
+    def is_game_over(self,state):
+        pass
+
+    # Get the move for the player at ind index
+    def move_player(self, ind=0):
+        pass
+
+    # Returns the index of the winner
+    def get_winner(self):
+        pass
+
+    # Resets the game to be played again
+    def reset_game(self):
+        pass
